@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: npm install
-      uses: actions/npm@master
+      uses: actions/setup-node@v1.4.2
       with:
         args: install
     - name: serverless deploy
