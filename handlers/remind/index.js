@@ -1,8 +1,11 @@
-const participants = require('../../participants');
 const {sendMessage} = require('../../bot');
-const {REMIND_MESSAGE} = require('../../constants');
+const {REMIND_MESSAGE, PROJECT_SERVER_LINK} = require('../../constants');
 
 module.exports = async function (chatId) {
-  const message = `${participants.print()}\n${REMIND_MESSAGE}`;
+  const message = `
+${REMIND_MESSAGE}
+${PROJECT_SERVER_LINK}
+`;
+
   await sendMessage(chatId, message);
 };
