@@ -4,8 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "deploy": "sls deploy",
-    "lint": "./node_modules/.bin/eslint --ext .js"
+    "lint": "./node_modules/.bin/eslint --ext .js ."
   },
   "keywords": [],
   "author": "",

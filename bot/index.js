@@ -1,5 +1,5 @@
 const rp = require('request-promise');
-const { TELEGRAM_TOKEN } = require('../constants');
+const {TELEGRAM_TOKEN} = require('../constants');
 
 module.exports.sendMessage = async function (chatId, message) {
   const options = {

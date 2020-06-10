@@ -1,13 +1,13 @@
 // handlers
-const helloHandler = require('./handlers/hello');
-const defaultHandler = require('./handlers/default');
+const handlers = require('./handlers');
+const unknownHandler = require('./handlers/unknown');
 
 /**
  * Eject method name from text message.
  * @param {string} message Text message, eject method name from.
  * @return {string} Method name or empty string.
  */
-function getMethodFromMessage(message) {
+function getMethodNameFromMessage(message) {
   if (message.indexOf('/') === -1) {
     return '';
   }
@@ -22,15 +22,17 @@ function getMethodFromMessage(message) {
 
 module.exports.webhook = async (event) => {
   const body = JSON.parse(event.body);
-  const { chat, text } = body.message;
+  const {chat, text} = body.message;
 
-  const method = getMethodFromMessage(text);
-
-  switch (method) {
-    case '/hello':
-      return helloHandler(chat.id);
-
-    default:
-      return defaultHandler(chat.id);
+  const methodName = getMethodNameFromMessage(text);
+  if (!methodName) {
+    return {statusCode: 200};
   }
+
+  const method = handlers[methodName];
+  if (method) {
+    return method(chat.id);
+  }
+
+  return unknownHandler(chat.id);
 };

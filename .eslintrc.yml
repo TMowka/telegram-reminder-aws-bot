@@ -12,4 +12,5 @@ plugins:
 rules:
   space-before-function-paren:
     - error
-    - always
+    - anonymous: always
+      named: never
