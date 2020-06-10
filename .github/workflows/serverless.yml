@@ -10,9 +10,9 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: npm install
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - name: setup node
+      uses: actions/setup-node@v1
       with:
         node-version: '12'
     - run: npm install -g serverless
