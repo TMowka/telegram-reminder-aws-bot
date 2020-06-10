@@ -19,4 +19,4 @@ functions:
   remind:
     handler: handler.remind
     events:
-      - schedule: cron(30 20 * * MON-FRI *)
+      - schedule: cron(37 20 ? * MON-FRI *)
