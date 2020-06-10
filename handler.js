@@ -3,13 +3,13 @@ const handlers = require('./handlers');
 const unknownHandler = require('./handlers/unknown');
 
 /**
- * Eject method name from text message.
- * @param {string} message Text message, eject method name from.
- * @return {string} Method name or empty string.
+ * Split method name and text message
+ * @param {string} message Text message to split
+ * @return {Array} Method name and message
  */
-function getMethodNameFromMessage(message) {
+function splitMethodNameAndMessage(message) {
   if (message.indexOf('/') === -1) {
-    return '';
+    return [];
   }
 
   let lastIndex = message.indexOf(' ');
@@ -17,22 +17,26 @@ function getMethodNameFromMessage(message) {
     lastIndex = message.length;
   }
 
-  return message.substr(0, lastIndex);
+  const methodName = message.splice(0, lastIndex);
+  const textMessage = message.splice(lastIndex);
+  return [methodName, textMessage];
 }
 
 module.exports.webhook = async (event) => {
   const body = JSON.parse(event.body);
   const {chat, text} = body.message;
 
-  const methodName = getMethodNameFromMessage(text);
+  const [methodName, message] = splitMethodNameAndMessage(text);
   if (!methodName) {
     return {statusCode: 200};
   }
 
   const method = handlers[methodName];
   if (method) {
-    return method(chat.id);
+    await method(chat.id, message);
+  } else {
+    await unknownHandler(chat.id);
   }
 
-  return unknownHandler(chat.id);
+  return {statusCode: 200};
 };
