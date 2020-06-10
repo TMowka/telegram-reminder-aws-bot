@@ -1,3 +1,4 @@
 ### telegram-reminder-aws-bot
 
-![Node.js CI](https://github.com/TMowka/telegram-reminder-aws-bot/workflows/Node.js%20CI/badge.svg?branch=master)
+![Build](https://github.com/TMowka/telegram-reminder-aws-bot/workflows/Build/badge.svg?branch=master)
+![Serverless](https://github.com/TMowka/telegram-reminder-aws-bot/workflows/Serverless/badge.svg?branch=master)
