@@ -4,12 +4,12 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: eu-west-1
+  environment:
+    TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
 
 functions:
   webhook:
     handler: handler.webhook
-    environment:
-      TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
 
     events:
       - http:
