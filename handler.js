@@ -17,8 +17,8 @@ function splitMethodNameAndMessage(message) {
     lastIndex = message.length;
   }
 
-  const methodName = message.splice(0, lastIndex);
-  const textMessage = message.splice(lastIndex);
+  const methodName = message.substr(0, lastIndex);
+  const textMessage = message.substr(lastIndex + 1);
   return [methodName, textMessage];
 }
 
