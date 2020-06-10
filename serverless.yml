@@ -6,13 +6,17 @@ provider:
   region: eu-west-1
   environment:
     TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
+    REMIND_CHAT_ID: ${env:REMIND_CHAT_ID}
 
 functions:
   webhook:
     handler: handler.webhook
-
     events:
       - http:
           path: webhook
           method: post
           cors: true
+  remind:
+    handler: handler.remind
+    events:
+      - schedule: rate(1 minute)

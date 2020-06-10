@@ -1,6 +1,8 @@
 // handlers
 const handlers = require('./handlers');
 const unknownHandler = require('./handlers/unknown');
+const remindHandler = require('./handlers/remind');
+const {REMIND_CHAT_ID} = require('./constants');
 
 /**
  * Split method name and text message
@@ -38,5 +40,10 @@ module.exports.webhook = async (event) => {
     await unknownHandler(chat.id);
   }
 
+  return {statusCode: 200};
+};
+
+module.exports.remind = async () => {
+  await remindHandler(REMIND_CHAT_ID);
   return {statusCode: 200};
 };
