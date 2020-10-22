@@ -1,11 +1,8 @@
-const {sendMessage} = require('../../bot');
-const {REMIND_MESSAGE, PROJECT_SERVER_LINK} = require('../../constants');
+const {sendAnimation} = require('../../bot');
+const {REMIND_ANIMATION} = require('../../constants');
 
 module.exports = async function (chatId) {
-  const message = `
-${REMIND_MESSAGE}
-${PROJECT_SERVER_LINK}
-`;
+  const animation = REMIND_ANIMATION;
 
-  await sendMessage(chatId, message);
+  await sendAnimation(chatId, animation);
 };

@@ -13,3 +13,16 @@ module.exports.sendMessage = async function (chatId, message) {
 
   return rp(options);
 };
+
+module.exports.sendAnimation = async function (chatId, animation) {
+  const options = {
+    method: 'GET',
+    uri: `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendAnimation`,
+    qs: {
+      chat_id: chatId,
+      animation,
+    },
+  };
+
+  return rp(options);
+};
