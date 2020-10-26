@@ -5,12 +5,9 @@ provider:
   runtime: nodejs12.x
   region: eu-west-1
   environment:
-    # OPEN_WEATHER_MAP_API_KEY: ${env:OPEN_WEATHER_MAP_API_KEY}
-    # TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
-    # REMIND_CHAT_ID: ${env:REMIND_CHAT_ID}
-    OPEN_WEATHER_MAP_API_KEY: 88110c86f26dbd10170aa14adbfe28b3
-    TELEGRAM_TOKEN: asda
-    REMIND_CHAT_ID: asdas
+    OPEN_WEATHER_MAP_API_KEY: ${env:OPEN_WEATHER_MAP_API_KEY}
+    TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
+    REMIND_CHAT_ID: ${env:REMIND_CHAT_ID}
 
 functions:
   webhook:
