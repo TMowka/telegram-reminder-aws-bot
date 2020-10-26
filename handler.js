@@ -2,25 +2,25 @@ const {getHandlerByName} = require('./lib/handlers');
 const {REMIND_CHAT_ID} = require('./constants');
 
 /**
- * Split method name and text message
- * @param {string} [message] Text message to split
- * @return {string[]} Method name and message
+ * Split method name and data
+ * @param {string} [text] Text message to split
+ * @return {string[]} Method name and data
  */
-function splitMethodNameAndMessage(message = '') {
-  if (message.indexOf('/') === -1) {
+function splitMethodNameAndData(text = '') {
+  if (text.indexOf('/') === -1) {
     return [];
   }
 
   let methodName;
   const textMessage =
-    message.indexOf(' ') !== -1 && message.indexOf(' ') !== message.length - 1
-      ? message.substr(message.indexOf(' ') + 1)
+    text.indexOf(' ') !== -1 && text.indexOf(' ') !== text.length - 1
+      ? text.substr(text.indexOf(' ') + 1)
       : '';
 
-  if (message.indexOf('@') !== -1) {
-    methodName = message.substr(1, message.indexOf('@') - 1);
+  if (text.indexOf('@') !== -1) {
+    methodName = text.substr(1, text.indexOf('@') - 1);
   } else {
-    methodName = message.substr(1, message.indexOf(' ') - 1);
+    methodName = text.substr(1, text.indexOf(' ') - 1);
   }
 
   return [methodName, textMessage];
@@ -28,14 +28,13 @@ function splitMethodNameAndMessage(message = '') {
 
 module.exports.webhook = async (event) => {
   const body = JSON.parse(event.body);
-
   if (!body.message) {
     return {statusCode: 200};
   }
 
   const {chat, text} = body.message;
 
-  const [methodName, message] = splitMethodNameAndMessage(text);
+  const [methodName, methodData] = splitMethodNameAndData(text);
   if (!methodName) {
     return {statusCode: 200};
   }
@@ -43,7 +42,7 @@ module.exports.webhook = async (event) => {
   const handler = getHandlerByName(methodName);
   const unknownHandler = getHandlerByName('unknown');
   if (handler) {
-    await handler(chat.id, message);
+    await handler(chat.id, methodData);
   } else {
     await unknownHandler(chat.id);
   }
