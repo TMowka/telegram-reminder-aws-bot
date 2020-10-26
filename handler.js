@@ -16,7 +16,7 @@ function splitMethodNameAndMessage(message) {
     lastIndex = message.length;
   }
 
-  const methodName = message.substr(1, lastIndex);
+  const methodName = message.substr(1, lastIndex - 1);
   const textMessage = message.substr(lastIndex + 1);
   return [methodName, textMessage];
 }
@@ -30,8 +30,8 @@ module.exports.webhook = async (event) => {
     return {statusCode: 200};
   }
 
-  const handler = await getHandlerByName(methodName);
-  const unknownHandler = await getHandlerByName('unknown');
+  const handler = getHandlerByName(methodName);
+  const unknownHandler = getHandlerByName('unknown');
   if (handler) {
     await handler(chat.id, message);
   } else {
@@ -42,7 +42,7 @@ module.exports.webhook = async (event) => {
 };
 
 module.exports.remind = async () => {
-  const handler = await getHandlerByName('remind');
+  const handler = getHandlerByName('remind');
   await handler(REMIND_CHAT_ID);
   return {statusCode: 200};
 };
