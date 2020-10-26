@@ -27,8 +27,12 @@ function splitMethodNameAndMessage(message = '') {
 }
 
 module.exports.webhook = async (event) => {
-  console.log(event);
   const body = JSON.parse(event.body);
+
+  if (!body.message) {
+    return {statusCode: 200};
+  }
+
   const {chat, text} = body.message;
 
   const [methodName, message] = splitMethodNameAndMessage(text);
