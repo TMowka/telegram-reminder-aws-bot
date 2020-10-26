@@ -1,7 +1,4 @@
-// handlers
-const handlers = require('./handlers');
-const unknownHandler = require('./handlers/unknown');
-const remindHandler = require('./handlers/remind');
+const {getHandlerByName} = require('./lib/handlers');
 const {REMIND_CHAT_ID} = require('./constants');
 
 /**
@@ -19,7 +16,7 @@ function splitMethodNameAndMessage(message) {
     lastIndex = message.length;
   }
 
-  const methodName = message.substr(0, lastIndex);
+  const methodName = message.substr(1, lastIndex);
   const textMessage = message.substr(lastIndex + 1);
   return [methodName, textMessage];
 }
@@ -33,9 +30,10 @@ module.exports.webhook = async (event) => {
     return {statusCode: 200};
   }
 
-  const method = handlers[methodName];
-  if (method) {
-    await method(chat.id, message);
+  const handler = getHandlerByName(methodName);
+  const unknownHandler = getHandlerByName('unknown');
+  if (handler) {
+    await handler(chat.id, message);
   } else {
     await unknownHandler(chat.id);
   }
@@ -44,6 +42,7 @@ module.exports.webhook = async (event) => {
 };
 
 module.exports.remind = async () => {
-  await remindHandler(REMIND_CHAT_ID);
+  const handler = getHandlerByName('remind');
+  await handler(REMIND_CHAT_ID);
   return {statusCode: 200};
 };

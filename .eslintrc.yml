@@ -5,6 +5,7 @@ env:
 extends:
   - eslint:recommended
   - google
+  - prettier
 parserOptions:
   ecmaVersion: 11
 plugins:
