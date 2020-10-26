@@ -30,8 +30,8 @@ module.exports.webhook = async (event) => {
     return {statusCode: 200};
   }
 
-  const handler = getHandlerByName(methodName);
-  const unknownHandler = getHandlerByName('unknown');
+  const handler = await getHandlerByName(methodName);
+  const unknownHandler = await getHandlerByName('unknown');
   if (handler) {
     await handler(chat.id, message);
   } else {
@@ -42,7 +42,7 @@ module.exports.webhook = async (event) => {
 };
 
 module.exports.remind = async () => {
-  const handler = getHandlerByName('remind');
+  const handler = await getHandlerByName('remind');
   await handler(REMIND_CHAT_ID);
   return {statusCode: 200};
 };
