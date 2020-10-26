@@ -11,13 +11,18 @@ function splitMethodNameAndMessage(message) {
     return [];
   }
 
-  let lastIndex = message.indexOf(' ');
-  if (lastIndex === -1) {
-    lastIndex = message.length;
+  let methodName;
+  const textMessage =
+    message.indexOf(' ') !== -1 && message.indexOf(' ') !== message.length - 1
+      ? message.substr(message.indexOf(' ') + 1)
+      : '';
+
+  if (message.indexOf('@') !== -1) {
+    methodName = message.substr(1, message.indexOf('@') - 1);
+  } else {
+    methodName = message.substr(1, message.indexOf(' ') - 1);
   }
 
-  const methodName = message.substr(1, lastIndex - 1);
-  const textMessage = message.substr(lastIndex + 1);
   return [methodName, textMessage];
 }
 
