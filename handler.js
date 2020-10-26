@@ -4,7 +4,7 @@ const {REMIND_CHAT_ID} = require('./constants');
 /**
  * Split method name and text message
  * @param {string} message Text message to split
- * @return {Array} Method name and message
+ * @return {string[]} Method name and message
  */
 function splitMethodNameAndMessage(message) {
   if (message.indexOf('/') === -1) {
