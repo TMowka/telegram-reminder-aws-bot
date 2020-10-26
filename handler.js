@@ -27,6 +27,7 @@ function splitMethodNameAndMessage(message = '') {
 }
 
 module.exports.webhook = async (event) => {
+  console.log(event);
   const body = JSON.parse(event.body);
   const {chat, text} = body.message;
 
