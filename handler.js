@@ -11,16 +11,18 @@ function splitMethodNameAndData(text = '') {
     return [];
   }
 
-  let methodName;
-  const textMessage =
-    text.indexOf(' ') !== -1 && text.indexOf(' ') !== text.length - 1
-      ? text.substr(text.indexOf(' ') + 1)
-      : '';
+  let textMessage = '';
+  if (text.indexOf(' ') !== -1 && text.indexOf(' ') !== text.length - 1) {
+    textMessage = text.substr(text.indexOf(' ') + 1);
+  }
 
+  let methodName;
   if (text.indexOf('@') !== -1) {
     methodName = text.substr(1, text.indexOf('@') - 1);
-  } else {
+  } else if (text.indexOf(' ') !== -1) {
     methodName = text.substr(1, text.indexOf(' ') - 1);
+  } else {
+    methodName = text.substr(1);
   }
 
   return [methodName, textMessage];
