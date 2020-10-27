@@ -7,7 +7,7 @@ const {REMIND_CHAT_ID} = require('./constants');
  * @return {string[]} Method name and data
  */
 function splitMethodNameAndData(text = '') {
-  if (text.indexOf('/') === -1) {
+  if (text.indexOf('/') !== 0) {
     return [];
   }
 
