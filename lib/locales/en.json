@@ -1,0 +1,12 @@
+{
+  "hello": {
+    "message": "ALLO"
+  },
+  "unknown": {
+    "message": "Unknown command..."
+  },
+  "weather": {
+    "cloudness": "cloudness",
+    "noData": "No forecast data"
+  }
+}

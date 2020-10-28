@@ -1,32 +1,17 @@
+const i18n = require('i18n');
+const moment = require('moment');
+const path = require('path');
 const {getHandlerByName} = require('./lib/handlers');
-const {REMIND_CHAT_ID} = require('./constants');
+const {splitMethodNameAndData} = require('./lib/utils');
+const {LOCALE, REMIND_CHAT_ID} = require('./constants');
 
-/**
- * Split method name and data
- * @param {string} [text] Text message to split
- * @return {string[]} Method name and data
- */
-function splitMethodNameAndData(text = '') {
-  if (text.indexOf('/') !== 0) {
-    return [];
-  }
+i18n.configure({
+  locales: ['ru', 'en'],
+  directory: path.join(__dirname, '/lib/licales'),
+});
 
-  let textMessage = '';
-  if (text.indexOf(' ') !== -1 && text.indexOf(' ') !== text.length - 1) {
-    textMessage = text.substr(text.indexOf(' ') + 1);
-  }
-
-  let methodName;
-  if (text.indexOf('@') !== -1) {
-    methodName = text.substr(1, text.indexOf('@') - 1);
-  } else if (text.indexOf(' ') !== -1) {
-    methodName = text.substr(1, text.indexOf(' ') - 1);
-  } else {
-    methodName = text.substr(1);
-  }
-
-  return [methodName, textMessage];
-}
+i18n.setLocale(LOCALE);
+moment.locale(LOCALE);
 
 module.exports.webhook = async (event) => {
   const body = JSON.parse(event.body);
