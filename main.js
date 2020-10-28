@@ -7,7 +7,7 @@ const {LOCALE, REMIND_CHAT_ID} = require('./constants');
 
 i18n.configure({
   locales: ['ru', 'en'],
-  directory: path.join(__dirname, '/lib/licales'),
+  directory: path.join(__dirname, '/lib/locales'),
 });
 
 i18n.setLocale(LOCALE);
