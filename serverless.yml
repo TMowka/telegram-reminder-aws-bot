@@ -8,7 +8,7 @@ provider:
     OPEN_WEATHER_MAP_API_KEY: ${env:OPEN_WEATHER_MAP_API_KEY}
     TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
     REMIND_CHAT_ID: ${env:REMIND_CHAT_ID}
-    LOCALE: ${env.LOCALE}
+    LOCALE: ${env:LOCALE}
 
 functions:
   webhook:
